@@ -1,4 +1,4 @@
-import { shield, allow, deny, and, or } from "graphql-shield";
+import { shield, allow, deny, or, and } from "graphql-shield";
 const { ApolloError, } = require("apollo-server");
 import { isAuthenticated } from "./polices";
 
