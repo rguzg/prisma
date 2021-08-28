@@ -1,0 +1,123 @@
+# TODO: Add @relation and @createdAt and @updateTimedAt
+
+interface Node {
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+}
+
+# interface InventoryObject{
+#   name: String!
+#   price: Int!
+#   currentQuantity: Int!
+#   department: Departments!
+# }
+
+type MovieTheater implements Node{
+  id: ID! @id
+  # createdAt: DateTime @createdAt
+  # updatedAt: DateTime @updatedAt
+  name: String!
+  address: String!
+  showings: [Showing!] @relation(name: "TheaterShowings" link: INLINE)
+  screens: [Screen!] @relation(name: "TheaterScreens" link: INLINE)
+  # inventory: [InventoryObject!]! @relation(name: "TheaterInventory" link: INLINE)
+  employees: [Employee!] @relation(name: "TheaterEmployees" link: INLINE)
+}
+
+type Showing implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  movie: Movie! @relation(name: "ShowingMovie" link: INLINE)
+  time: DateTime!
+  screen: Screen! @relation(name: "ShowingScreen" link: INLINE)
+  seats: [Seat!]! @relation(name: "ShowingSeats" link: INLINE)
+}
+
+type Employee implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  firstName: String!
+  lastName: String!
+  salary: Int!
+  role: String
+  department: Departments!
+  user: User! @relation(name: "AssignedUser" link: INLINE)
+}
+
+type Movie implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  title: String!
+  description: String
+  rating: Rating!
+  length: Int!
+  genres: [Genre!]! @relation(name: "MovieGenres" link: INLINE)
+  releaseDate: DateTime!
+  is3D: Boolean
+  isIMAX: Boolean
+}
+
+type Screen implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  number: Int!
+  attribute: [ScreenAtributes!] @relation(name: "ScreenAttributes" link: INLINE)
+  status: ScreenStatus! 
+  currentlyShowing: Showing @relation(name: "CurrentShowing" link: INLINE)
+  currentSeats: [Seat!]! @relation(name: "CurrentSeats" link: INLINE)
+}
+
+type Seat implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  type: SeatType!
+  isOccupied: Boolean!
+}
+
+type Genre implements Node{
+  id: ID! @id
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  name: String!
+  description: String
+}
+
+enum Departments {
+  Cleaning
+  Snacks
+  IT
+  TicketBooth
+  Cafe
+}
+
+enum Rating {
+  G
+  PG
+  PG13
+  R
+  NC17
+}
+
+enum ScreenAtributes {
+  THIRDDIMENSION
+  VIP
+  IMAX
+}
+
+enum ScreenStatus {
+  Showing
+  Not Showing
+  Cleaning
+}
+
+enum SeatType {
+  Normal
+  VIP
+  DisabledPeople
+}
