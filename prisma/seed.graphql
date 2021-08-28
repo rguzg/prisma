@@ -7,3 +7,62 @@ mutation {
         }
     ) { id }
 }
+
+mutation {
+  createMovie( data:
+    {
+      title: "The End of Evangelion"
+      description: "The End of Evangelion is a 1997 Japanese psychological science fiction anime film written and co-directed by Hideaki Anno and animated by Gainax and Production I.G. It serves as a parallel ending to the Neon Genesis Evangelion television series"
+      rating: R
+      length: 87
+      genres: {
+        create: [
+          {name: "Science Fiction"}
+          {name: "Psychological"}
+        ]
+      }
+      releaseDate: "1997-07-19T00:00:00Z"
+      is3D: false
+      isIMAX: false
+    }
+  ) {id, title}
+}
+
+mutation {
+    createMovieTheater(data: {
+    name: "Premiere Cinemas 'El Tepeyac'"
+    address: "Calle Juan Bustos #540 Col. El Tepe Tepeyac, Oaxaca"
+    }
+  ) {name, address}
+}
+
+mutation {
+  createEmployee(data: {
+    firstName: "Josh"
+    lastName: "Nichols"
+    salary: 25000
+    role: "Snack Bar Cashier"
+    department: Snacks
+    user: {create: {
+      email: "joshn@premiere.net"
+      password: "megan"
+      name:"joshn"
+    }}
+  }) {firstName, lastName, user {name, email}}
+}
+
+mutation{
+  createScreen(data: {
+    number: 1
+		status: Not
+    currentSeats: { 
+      create: [
+        {type: Normal isOccupied: false}
+        {type: Normal isOccupied: false}
+        {type: Normal isOccupied: false}
+        {type: Normal isOccupied: false}
+        {type: Normal isOccupied: false}
+      ]
+    }
+  }) {number, status, currentSeats {type, isOccupied}}
+}
