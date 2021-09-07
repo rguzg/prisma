@@ -1,5 +1,3 @@
-# TODO: Add @relation and @createdAt and @updateTimedAt
-
 interface Node {
   id: ID! @id
   createdAt: DateTime @createdAt

@@ -17,9 +17,9 @@ export const permissions = shield(
     User: {
       "*": allow,
     },
-    File: {
-      "*": allow,
-    },
+    // File: {
+    //   "*": allow,
+    // },
   },
   {
     allowExternalErrors: true,
